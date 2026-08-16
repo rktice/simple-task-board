@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>インタラクティブ・タスクマネージャー</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Task Board</h1>
+      <p class="subtitle">タスク管理アプリ</p>
+    </header>
+
+    <!-- 入力フォーム -->
+    <section class="form-section">
+      <form id="task-form">
+        <input type="text" id="task-input" placeholder="新しいタスクを入力..." required>
+        <button type="submit" id="add-btn">追加</button>
+      </form>
+    </section>
+
+    <!-- カンバンボード -->
+    <main class="board">
+      <div class="column" id="col-todo">
+        <div class="column-header">
+          <h2>未着手</h2>
+          <span class="count" id="count-todo">0</span>
+        </div>
+        <div class="task-list" id="list-todo"></div>
+      </div>
+
+      <div class="column" id="col-in-progress">
+        <div class="column-header">
+          <h2>進行中</h2>
+          <span class="count" id="count-in-progress">0</span>
+        </div>
+        <div class="task-list" id="list-in-progress"></div>
+      </div>
+
+      <div class="column" id="col-done">
+        <div class="column-header">
+          <h2>完了</h2>
+          <span class="count" id="count-done">0</span>
+        </div>
+        <div class="task-list" id="list-done"></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
