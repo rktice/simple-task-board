@@ -1,0 +1,170 @@
+:root {
+  --bg-color: #f4f6f8;
+  --card-bg: #ffffff;
+  --text-main: #333333;
+  --text-muted: #777777;
+  --primary: #4a90e2;
+  --todo-color: #e67e22;
+  --progress-color: #3498db;
+  --done-color: #2ecc71;
+  --danger: #e74c3c;
+  --radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  padding: 24px 16px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.form-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+#task-form {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  max-width: 500px;
+}
+
+#task-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: var(--radius);
+  font-size: 1rem;
+}
+
+#task-input:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
+}
+
+#add-btn {
+  padding: 10px 20px;
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+#add-btn:hover {
+  opacity: 0.9;
+}
+
+/* カンバンボードのレイアウト（PC時は3カラム、スマホ時は1カラム） */
+.board {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.column {
+  background: #eef2f5;
+  border-radius: var(--radius);
+  padding: 16px;
+  min-height: 400px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.column-header h2 {
+  font-size: 1.1rem;
+}
+
+.count {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.task-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-card p {
+  font-size: 0.95rem;
+  word-break: break-word;
+}
+
+.card-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.btn-status, .btn-delete {
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-status:hover {
+  background: #f0f0f0;
+}
+
+.btn-delete {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.btn-delete:hover {
+  background: #fdf2f2;
+}
