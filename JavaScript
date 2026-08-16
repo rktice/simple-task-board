@@ -1,0 +1,86 @@
+// アプリケーションの状態（オブジェクトの配列で管理）
+let tasks = [
+  { id: 1, title: '課題レポートの作成', status: 'todo' },
+  { id: 2, title: 'JavaScriptの復習', status: 'in-progress' },
+  { id: 3, title: '環境構築（Git/GitHub）', status: 'done' }
+];
+
+// DOM要素の取得
+const form = document.getElementById('task-form');
+const input = document.getElementById('task-input');
+const listTodo = document.getElementById('list-todo');
+const listInProgress = document.getElementById('list-in-progress');
+const listDone = document.getElementById('list-done');
+
+// アロー関数によるタスクカードHTML生成
+const createTaskCardHTML = (task) => {
+  const nextActions = {
+    'todo': `<button class="btn-status" onclick="updateTaskStatus(${task.id}, 'in-progress')">進行中へ</button>`,
+    'in-progress': `
+      <button class="btn-status" onclick="updateTaskStatus(${task.id}, 'todo')">未着手へ</button>
+      <button class="btn-status" onclick="updateTaskStatus(${task.id}, 'done')">完了へ</button>
+    `,
+    'done': `<button class="btn-status" onclick="updateTaskStatus(${task.id}, 'in-progress')">戻す</button>`
+  };
+
+  return `
+    <div class="task-card">
+      <p>${task.title}</p>
+      <div class="card-actions">
+        ${nextActions[task.status]}
+        <button class="btn-delete" onclick="deleteTask(${task.id})">削除</button>
+      </div>
+    </div>
+  `;
+};
+
+// 画面の再描画（map処理を活用）
+const render = () => {
+  // 各ステータスのタスクを抽出してHTMLに変換
+  const todoTasks = tasks.filter(t => t.status === 'todo');
+  const inProgressTasks = tasks.filter(t => t.status === 'in-progress');
+  const doneTasks = tasks.filter(t => t.status === 'done');
+
+  listTodo.innerHTML = todoTasks.map(t => createTaskCardHTML(t)).join('');
+  listInProgress.innerHTML = inProgressTasks.map(t => createTaskCardHTML(t)).join('');
+  listDone.innerHTML = doneTasks.map(t => createTaskCardHTML(t)).join('');
+
+  // カウントの更新
+  document.getElementById('count-todo').textContent = todoTasks.length;
+  document.getElementById('count-in-progress').textContent = inProgressTasks.length;
+  document.getElementById('count-done').textContent = doneTasks.length;
+};
+
+// タスク追加
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const title = input.value.trim();
+  if (!title) return;
+
+  const newTask = {
+    id: Date.now(),
+    title: title,
+    status: 'todo'
+  };
+
+  tasks.push(newTask);
+  input.value = '';
+  render();
+});
+
+// ステータス更新（map処理で配列をイミュータブルに更新）
+window.updateTaskStatus = (id, nextStatus) => {
+  tasks = tasks.map(task => 
+    task.id === id ? { ...task, status: nextStatus } : task
+  );
+  render();
+};
+
+// タスク削除
+window.deleteTask = (id) => {
+  tasks = tasks.filter(task => task.id !== id);
+  render();
+};
+
+// 初期表示
+render();
